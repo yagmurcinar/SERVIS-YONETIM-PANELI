@@ -3,7 +3,7 @@ import { routes, drivers, mockApi } from '@/utils/mockData'
 
 export const useAssignmentStore = defineStore('assignment', {
   state: () => ({
-    routes: JSON.parse(JSON.stringify(routes)), // deep copy
+    routes: JSON.parse(JSON.stringify(routes)),
     drivers: JSON.parse(JSON.stringify(drivers)),
     filters: {
       date: new Date().toISOString().split('T')[0],
@@ -14,7 +14,7 @@ export const useAssignmentStore = defineStore('assignment', {
     toast: {
       show: false,
       message: '',
-      type: 'success', // success | error | warning
+      type: 'success',
     },
   }),
 
@@ -308,7 +308,6 @@ export const useAssignmentStore = defineStore('assignment', {
       }
     },
 
-    // Toast mesajı göster
     showToast(message, type = 'success') {
       this.toast = {
         show: true,
@@ -316,13 +315,11 @@ export const useAssignmentStore = defineStore('assignment', {
         type,
       }
 
-      // 3 saniye sonra kapat
       setTimeout(() => {
         this.toast.show = false
       }, 3000)
     },
 
-    // Yardımcı: Saat formatını dakikaya çevir (09:30 -> 570)
     timeToMinutes(time) {
       const [hours, minutes] = time.split(':').map(Number)
       return hours * 60 + minutes
