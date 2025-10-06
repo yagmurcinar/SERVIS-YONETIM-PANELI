@@ -19,32 +19,26 @@ export const useAssignmentStore = defineStore('assignment', {
   }),
 
   getters: {
-    // Filtrelenmiş hatlar
     filteredRoutes: (state) => {
       let result = [...state.routes]
 
-      // Vardiya filtresi
       if (state.filters.shift) {
         result = result.filter((r) => r.shift === state.filters.shift)
       }
 
-      // İlçe filtresi
       if (state.filters.district) {
         result = result.filter((r) => r.district === state.filters.district)
       }
 
-      // Arama filtresi
       if (state.filters.search) {
         const searchLower = state.filters.search.toLocaleLowerCase('tr-TR')
 
-        // Hat adı veya ilçe araması
         const matchingRoutes = result.filter(
           (r) =>
             r.name.toLocaleLowerCase('tr-TR').includes(searchLower) ||
             r.district.toLocaleLowerCase('tr-TR').includes(searchLower),
         )
 
-        // Sürücü araması
         const matchingDrivers = state.drivers.filter((d) =>
           `${d.firstName} ${d.lastName}`.toLocaleLowerCase('tr-TR').includes(searchLower),
         )
@@ -64,30 +58,22 @@ export const useAssignmentStore = defineStore('assignment', {
 
           result = result.filter((r) => allRouteIds.has(r.id))
         } else {
-          // Sadece hat araması sonucu
           result = matchingRoutes
         }
       }
 
       return result
     },
-
-    // Filtrelenmiş sürücüler
     filteredDrivers: (state) => {
       let result = [...state.drivers]
 
-      // Arama filtresi
       if (state.filters.search) {
         const searchLower = state.filters.search.toLocaleLowerCase('tr-TR')
-
-        // Sürücü araması
         const matchingDriversByName = result.filter(
           (d) =>
             `${d.firstName} ${d.lastName}`.toLocaleLowerCase('tr-TR').includes(searchLower) ||
             d.licenseClass.toLocaleLowerCase('tr-TR').includes(searchLower),
         )
-
-        // Hat araması
         const matchingRoutes = state.routes.filter(
           (r) =>
             r.name.toLocaleLowerCase('tr-TR').includes(searchLower) ||
@@ -111,7 +97,6 @@ export const useAssignmentStore = defineStore('assignment', {
 
           result = result.filter((d) => allDriverIds.has(d.id))
         } else {
-          // Sadece sürücü araması sonucu
           result = matchingDriversByName
         }
       }
@@ -127,25 +112,20 @@ export const useAssignmentStore = defineStore('assignment', {
       return driver.availability.find((av) => av.date === state.filters.date)
     },
 
-    // Belirli bir sürücünün atama bilgilerini getir
     getDriverById: (state) => (driverId) => {
       return state.drivers.find((d) => d.id === driverId)
     },
 
-    // Belirli bir hat bilgisini getir
     getRouteById: (state) => (routeId) => {
       return state.routes.find((r) => r.id === routeId)
     },
   },
 
   actions: {
-    // Filtre güncelleme
     updateFilter(key, value) {
       this.filters[key] = value
       this.syncFiltersToUrl()
     },
-
-    // URL'den filtreleri yükle
     loadFiltersFromUrl() {
       const params = new URLSearchParams(window.location.search)
 
@@ -155,7 +135,6 @@ export const useAssignmentStore = defineStore('assignment', {
       if (params.has('search')) this.filters.search = params.get('search')
     },
 
-    // Filtreleri URL'e yaz
     syncFiltersToUrl() {
       const params = new URLSearchParams()
 
@@ -208,10 +187,9 @@ export const useAssignmentStore = defineStore('assignment', {
 
       if (!driver || !route) return false
 
-      // Seçili tarihteki müsaitlik bilgisini bul
       const availability = this.getDriverAvailability(driverId)
 
-      if (!availability) return false // Sürücü bu tarihte müsait değil
+      if (!availability) return false
 
       let availableFromMinutes = this.timeToMinutes(availability.availableFrom)
       let availableToMinutes = this.timeToMinutes(availability.availableTo)
@@ -233,7 +211,6 @@ export const useAssignmentStore = defineStore('assignment', {
       return availableFromMinutes <= routeStartMinutes && availableToMinutes >= adjustedRouteEnd
     },
 
-    // Kapasite uyarısı kontrolü
     checkCapacityWarning(routeId) {
       const route = this.getRouteById(routeId)
       if (!route) return false
@@ -241,7 +218,6 @@ export const useAssignmentStore = defineStore('assignment', {
       return route.passengerCount > route.capacity
     },
 
-    // Sürücü atama (Optimistic Update)
     async assignDriver(driverId, routeId) {
       const driver = this.getDriverById(driverId)
       const route = this.getRouteById(routeId)
@@ -271,7 +247,7 @@ export const useAssignmentStore = defineStore('assignment', {
         routeId: route.id,
         startTime: route.startTime,
         endTime: route.endTime,
-        date: this.filters.date, // Seçili tarihi ekle
+        date: this.filters.date,
       })
       route.assignedDrivers.push(driverId)
 
@@ -289,7 +265,6 @@ export const useAssignmentStore = defineStore('assignment', {
       }
     },
 
-    // Sürücü atamasını kaldır
     async removeDriver(driverId, routeId) {
       const driver = this.getDriverById(driverId)
       const route = this.getRouteById(routeId)

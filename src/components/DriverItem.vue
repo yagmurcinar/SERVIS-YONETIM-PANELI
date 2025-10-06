@@ -64,13 +64,11 @@ const isBusy = computed(() => {
   return props.driver.currentAssignments.some((a) => a.date === selectedDate)
 })
 
-// Durum metni
 const statusText = computed(() => {
   if (!todayAvailability.value) return 'Bu tarihte müsait değil'
   return isBusy.value ? 'Meşgul' : 'Müsait'
 })
 
-// Durum CSS sınıfı
 const statusClass = computed(() => {
   if (!todayAvailability.value) return 'status-unavailable'
   return isBusy.value ? 'status-busy' : 'status-available'

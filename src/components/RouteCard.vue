@@ -1,19 +1,16 @@
-<!-- src/components/RouteCard.vue -->
 <template>
-  <div 
+  <div
     class="route-card"
-    :class="{ 
+    :class="{
       'drop-active': isDragOver,
-      'has-warning': hasCapacityWarning 
+      'has-warning': hasCapacityWarning,
     }"
     @dragover.prevent="handleDragOver"
     @dragleave="handleDragLeave"
     @drop="handleDrop"
   >
     <!-- Kapasite Uyarısı -->
-    <div v-if="hasCapacityWarning" class="warning-badge">
-      ⚠️ Kapasite Aşımı
-    </div>
+    <div v-if="hasCapacityWarning" class="warning-badge">⚠️ Kapasite Aşımı</div>
 
     <!-- Hat Başlığı -->
     <div class="route-header">
@@ -44,21 +41,11 @@
     <!-- Atanan Sürücüler -->
     <div class="assigned-section">
       <h4 class="assigned-title">Atanan Sürücüler</h4>
-      
+
       <div v-if="assignedDrivers.length > 0" class="assigned-drivers">
-        <div 
-          v-for="driver in assignedDrivers" 
-          :key="driver.id"
-          class="assigned-driver"
-        >
-          <span class="driver-fullname">
-            {{ driver.firstName }} {{ driver.lastName }}
-          </span>
-          <button 
-            @click="handleRemoveDriver(driver.id)"
-            class="remove-btn"
-            title="Ataması Kaldır"
-          >
+        <div v-for="driver in assignedDrivers" :key="driver.id" class="assigned-driver">
+          <span class="driver-fullname"> {{ driver.firstName }} {{ driver.lastName }} </span>
+          <button @click="handleRemoveDriver(driver.id)" class="remove-btn" title="Ataması Kaldır">
             ✕
           </button>
         </div>
@@ -72,98 +59,88 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useAssignmentStore } from '@/stores/assignmentStore';
+import { ref, computed } from 'vue'
+import { useAssignmentStore } from '@/stores/assignmentStore'
 
 const props = defineProps({
   route: {
     type: Object,
-    required: true
-  }
-});
+    required: true,
+  },
+})
 
-const store = useAssignmentStore();
-const isDragOver = ref(false);
+const store = useAssignmentStore()
+const isDragOver = ref(false)
 
-// Vardiya etiketi
 const shiftLabel = computed(() => {
-  return props.route.shift === 'morning' ? 'Sabah' : 'Gece';
-});
+  return props.route.shift === 'morning' ? 'Sabah' : 'Gece'
+})
 
-// Vardiya CSS sınıfı
 const shiftClass = computed(() => {
-  return props.route.shift === 'morning' ? 'shift-morning' : 'shift-night';
-});
+  return props.route.shift === 'morning' ? 'shift-morning' : 'shift-night'
+})
 
-// Kapasite uyarısı var mı?
+// Kapasite uyarısı
 const hasCapacityWarning = computed(() => {
-  return store.checkCapacityWarning(props.route.id);
-});
+  return store.checkCapacityWarning(props.route.id)
+})
 
 // Atanan sürücülerin detayları (seçili tarih için)
 const assignedDrivers = computed(() => {
-  const selectedDate = store.filters.date;
-  
-  // Bu hatta atanan sürücülerin detaylarını al
+  const selectedDate = store.filters.date
+
   return props.route.assignedDrivers
-    .map(driverId => {
-      const driver = store.getDriverById(driverId);
-      if (!driver) return null;
-      
-      // Bu sürücünün bu hatta bu tarihteki ataması var mı?
+    .map((driverId) => {
+      const driver = store.getDriverById(driverId)
+      if (!driver) return null
+
       const hasAssignmentOnDate = driver.currentAssignments.some(
-        a => a.routeId === props.route.id && a.date === selectedDate
-      );
-      
-      return hasAssignmentOnDate ? driver : null;
+        (a) => a.routeId === props.route.id && a.date === selectedDate,
+      )
+
+      return hasAssignmentOnDate ? driver : null
     })
-    .filter(Boolean); // null olanları temizle
-});
+    .filter(Boolean)
+})
 
-// Drag over
 const handleDragOver = (e) => {
-  e.preventDefault();
-  isDragOver.value = true;
-};
+  e.preventDefault()
+  isDragOver.value = true
+}
 
-// Drag leave
 const handleDragLeave = () => {
-  isDragOver.value = false;
-};
+  isDragOver.value = false
+}
 
-// Drop
 const handleDrop = async (e) => {
-  e.preventDefault();
-  isDragOver.value = false;
+  e.preventDefault()
+  isDragOver.value = false
 
-  const driverId = e.dataTransfer.getData('driverId');
-  if (!driverId) return;
+  const driverId = e.dataTransfer.getData('driverId')
+  if (!driverId) return
 
   // Zaten atanmış mı kontrol et (aynı tarih için)
-  const selectedDate = store.filters.date;
-  const driver = store.getDriverById(driverId);
-  
+  const selectedDate = store.filters.date
+  const driver = store.getDriverById(driverId)
+
   if (driver) {
     const alreadyAssigned = driver.currentAssignments.some(
-      a => a.routeId === props.route.id && a.date === selectedDate
-    );
-    
+      (a) => a.routeId === props.route.id && a.date === selectedDate,
+    )
+
     if (alreadyAssigned) {
-      store.showToast('Bu sürücü bu tarihte zaten bu hatta atanmış', 'warning');
-      return;
+      store.showToast('Bu sürücü bu tarihte zaten bu hatta atanmış', 'warning')
+      return
     }
   }
 
-  // Atamayı yap
-  await store.assignDriver(driverId, props.route.id);
-};
-
-// Sürücü atamasını kaldır
+  await store.assignDriver(driverId, props.route.id)
+}
 const handleRemoveDriver = async (driverId) => {
   if (confirm('Bu sürücünün atamasını kaldırmak istediğinize emin misiniz?')) {
-    await store.removeDriver(driverId, props.route.id);
+    await store.removeDriver(driverId, props.route.id)
   }
-};
+}
 </script>
 
 <style scoped>

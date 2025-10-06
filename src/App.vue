@@ -41,7 +41,6 @@ import Toast from '@/components/Toast.vue'
 
 const store = useAssignmentStore()
 
-// Filtrelenmiş hatlar
 const filteredRoutes = computed(() => {
   return store.filteredRoutes
 })
