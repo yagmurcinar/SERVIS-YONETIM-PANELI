@@ -1,9 +1,7 @@
 <template>
   <div class="app">
-
     <header class="app-header">
-      <h1 class="app-title">🚌 Servis Yönetim Paneli</h1>
-      <p class="app-subtitle">Vardiya ve sürücü atama sistemi</p>
+      <h1 class="app-title">Servis Yönetim Paneli</h1>
     </header>
 
     <main class="app-main">
@@ -17,11 +15,7 @@
         </div>
 
         <div class="routes-container">
-          <RouteCard 
-            v-for="route in filteredRoutes" 
-            :key="route.id"
-            :route="route"
-          />
+          <RouteCard v-for="route in filteredRoutes" :key="route.id" :route="route" />
 
           <div v-if="filteredRoutes.length === 0" class="empty-state">
             <span class="empty-icon">🔍</span>
@@ -38,24 +32,24 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
-import { useAssignmentStore } from '@/stores/assignmentStore';
-import FilterPanel from '@/components/FilterPanel.vue';
-import RouteCard from '@/components/RouteCard.vue';
-import DriverList from '@/components/DriverList.vue';
-import Toast from '@/components/Toast.vue';
+import { computed, onMounted } from 'vue'
+import { useAssignmentStore } from '@/stores/assignmentStore'
+import FilterPanel from '@/components/FilterPanel.vue'
+import RouteCard from '@/components/RouteCard.vue'
+import DriverList from '@/components/DriverList.vue'
+import Toast from '@/components/Toast.vue'
 
-const store = useAssignmentStore();
+const store = useAssignmentStore()
 
 // Filtrelenmiş hatlar
 const filteredRoutes = computed(() => {
-  return store.filteredRoutes;
-});
+  return store.filteredRoutes
+})
 
 // Sayfa yüklendiğinde URL'den filtreleri yükle
 onMounted(() => {
-  store.loadFiltersFromUrl();
-});
+  store.loadFiltersFromUrl()
+})
 </script>
 
 <style>
@@ -67,7 +61,8 @@ onMounted(() => {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: #f3f4f6;
   color: #1f2937;
 }
@@ -78,9 +73,10 @@ body {
 
 .app-header {
   background: white;
-  padding: 24px 40px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 14px 40px;
+  box-shadow: 0 3px 3px rgba(182, 107, 37, 0.1);
   border-bottom: 1px solid #e5e7eb;
+  background-color: #f0ebdf;
 }
 
 .app-title {
@@ -88,6 +84,7 @@ body {
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 4px;
+  text-align: center;
 }
 
 .app-subtitle {

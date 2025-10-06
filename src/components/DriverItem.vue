@@ -1,6 +1,5 @@
-
 <template>
-  <div 
+  <div
     class="driver-item"
     :class="{ 'driver-busy': isBusy }"
     draggable="true"
@@ -17,10 +16,7 @@
     <div class="driver-info">
       <div class="info-row">
         <span class="info-label">Durum:</span>
-        <span 
-          class="status-badge" 
-          :class="statusClass"
-        >
+        <span class="status-badge" :class="statusClass">
           {{ statusText }}
         </span>
       </div>
@@ -42,72 +38,70 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { useAssignmentStore } from '@/stores/assignmentStore';
+import { computed } from 'vue'
+import { useAssignmentStore } from '@/stores/assignmentStore'
 
 const props = defineProps({
   driver: {
     type: Object,
-    required: true
-  }
-});
+    required: true,
+  },
+})
 
-const store = useAssignmentStore();
+const store = useAssignmentStore()
 
 // Seçili tarihteki müsaitlik bilgisi
 const todayAvailability = computed(() => {
-  return store.getDriverAvailability(props.driver.id);
-});
+  return store.getDriverAvailability(props.driver.id)
+})
 
 // Sürücü meşgul mü? (seçili tarihte)
 const isBusy = computed(() => {
   // Önce bu tarihte müsait mi kontrol et
-  if (!todayAvailability.value) return false;
-  
-  const selectedDate = store.filters.date;
-  return props.driver.currentAssignments.some(a => a.date === selectedDate);
-});
+  if (!todayAvailability.value) return false
+
+  const selectedDate = store.filters.date
+  return props.driver.currentAssignments.some((a) => a.date === selectedDate)
+})
 
 // Durum metni
 const statusText = computed(() => {
-  if (!todayAvailability.value) return 'Bu tarihte müsait değil';
-  return isBusy.value ? 'Meşgul' : 'Müsait';
-});
+  if (!todayAvailability.value) return 'Bu tarihte müsait değil'
+  return isBusy.value ? 'Meşgul' : 'Müsait'
+})
 
 // Durum CSS sınıfı
 const statusClass = computed(() => {
-  if (!todayAvailability.value) return 'status-unavailable';
-  return isBusy.value ? 'status-busy' : 'status-available';
-});
+  if (!todayAvailability.value) return 'status-unavailable'
+  return isBusy.value ? 'status-busy' : 'status-available'
+})
 
 // Son atama bitiş saati (seçili tarih için)
 const lastAssignmentEnd = computed(() => {
-  const selectedDate = store.filters.date;
-  const assignmentsOnDate = props.driver.currentAssignments.filter(
-    a => a.date === selectedDate
-  );
-  
-  if (assignmentsOnDate.length === 0) return null;
-  
+  const selectedDate = store.filters.date
+  const assignmentsOnDate = props.driver.currentAssignments.filter((a) => a.date === selectedDate)
+
+  if (assignmentsOnDate.length === 0) return null
+
   // En son biten atamayı bul
   const sorted = [...assignmentsOnDate].sort((a, b) => {
-    return store.timeToMinutes(b.endTime) - store.timeToMinutes(a.endTime);
-  });
-  
-  return sorted[0].endTime;
-});
+    return store.timeToMinutes(b.endTime) - store.timeToMinutes(a.endTime)
+  })
+
+  return sorted[0].endTime
+})
 
 // Drag başlangıcı
 const handleDragStart = (e) => {
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('driverId', props.driver.id);
-  e.target.style.opacity = '0.5';
-};
+  e.dataTransfer.effectAllowed = 'move'
+  e.dataTransfer.setData('driverId', props.driver.id)
+  e.target.style.opacity = '0.5'
+}
 
 // Drag bitişi
 const handleDragEnd = (e) => {
-  e.target.style.opacity = '1';
-};
+  e.target.style.opacity = '1'
+}
 </script>
 
 <style scoped>

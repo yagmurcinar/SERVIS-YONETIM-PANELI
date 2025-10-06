@@ -8,7 +8,7 @@ export const routes = [
     passengerCount: 25,
     district: 'Kadıköy',
     shift: 'morning',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r2',
@@ -19,7 +19,7 @@ export const routes = [
     passengerCount: 22, // kapasite aşımı
     district: 'Beşiktaş',
     shift: 'morning',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r3',
@@ -30,7 +30,7 @@ export const routes = [
     passengerCount: 18,
     district: 'Üsküdar',
     shift: 'morning',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r4',
@@ -41,7 +41,7 @@ export const routes = [
     passengerCount: 20,
     district: 'Şişli',
     shift: 'morning',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r5',
@@ -52,18 +52,18 @@ export const routes = [
     passengerCount: 19,
     district: 'Bakırköy',
     shift: 'morning',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r6',
     name: 'Ataşehir - Ümraniye Hattı',
-    startTime: '07:15',
-    endTime: '09:15',
+    startTime: '18:00',
+    endTime: '20:15',
     capacity: 26,
     passengerCount: 24,
     district: 'Ataşehir',
     shift: 'morning',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r7',
@@ -74,7 +74,7 @@ export const routes = [
     passengerCount: 20,
     district: 'Beylikdüzü',
     shift: 'night',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r8',
@@ -85,7 +85,7 @@ export const routes = [
     passengerCount: 26, // kapasite aşımı
     district: 'Maltepe',
     shift: 'night',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r9',
@@ -96,7 +96,7 @@ export const routes = [
     passengerCount: 21,
     district: 'Çekmeköy',
     shift: 'night',
-    assignedDrivers: []
+    assignedDrivers: [],
   },
   {
     id: 'r10',
@@ -107,9 +107,9 @@ export const routes = [
     passengerCount: 23,
     district: 'Sultangazi',
     shift: 'night',
-    assignedDrivers: []
-  }
-];
+    assignedDrivers: [],
+  },
+]
 
 export const drivers = [
   {
@@ -118,13 +118,13 @@ export const drivers = [
     lastName: 'Yılmaz',
     licenseClass: 'D',
     status: 'available',
-    currentAssignments: [], 
+    currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '06:00', availableTo: '14:00' },
       { date: '2025-10-06', availableFrom: '06:00', availableTo: '14:00' },
-      { date: '2025-10-07', availableFrom: '18:00', availableTo: '02:00' }, 
-      { date: '2025-10-08', availableFrom: '06:00', availableTo: '14:00' }
-    ]
+      { date: '2025-10-07', availableFrom: '18:00', availableTo: '02:00' },
+      { date: '2025-10-08', availableFrom: '06:00', availableTo: '14:00' },
+    ],
   },
   {
     id: 'd2',
@@ -136,8 +136,8 @@ export const drivers = [
     availability: [
       { date: '2025-10-05', availableFrom: '06:30', availableTo: '15:00' },
       { date: '2025-10-06', availableFrom: '06:30', availableTo: '15:00' },
-      { date: '2025-10-08', availableFrom: '19:00', availableTo: '03:00' }
-    ]
+      { date: '2025-10-08', availableFrom: '19:00', availableTo: '03:00' },
+    ],
   },
   {
     id: 'd3',
@@ -149,8 +149,8 @@ export const drivers = [
     availability: [
       { date: '2025-10-05', availableFrom: '06:00', availableTo: '14:30' },
       { date: '2025-10-06', availableFrom: '06:00', availableTo: '14:30' },
-      { date: '2025-10-07', availableFrom: '06:00', availableTo: '14:30' }
-    ]
+      { date: '2025-10-07', availableFrom: '06:00', availableTo: '14:30' },
+    ],
   },
   {
     id: 'd4',
@@ -162,8 +162,8 @@ export const drivers = [
     availability: [
       { date: '2025-10-05', availableFrom: '07:30', availableTo: '16:00' },
       { date: '2025-10-07', availableFrom: '07:30', availableTo: '16:00' },
-      { date: '2025-10-08', availableFrom: '18:00', availableTo: '02:00' }
-    ]
+      { date: '2025-10-08', availableFrom: '18:00', availableTo: '02:00' },
+    ],
   },
   {
     id: 'd5',
@@ -174,8 +174,8 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '08:00', availableTo: '17:00' },
-      { date: '2025-10-06', availableFrom: '08:00', availableTo: '17:00' }
-    ]
+      { date: '2025-10-06', availableFrom: '08:00', availableTo: '17:00' },
+    ],
   },
   {
     id: 'd6',
@@ -186,8 +186,8 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '09:00', availableTo: '13:00' },
-      { date: '2025-10-06', availableFrom: '19:00', availableTo: '23:00' }
-    ]
+      { date: '2025-10-06', availableFrom: '19:00', availableTo: '23:00' },
+    ],
   },
   {
     id: 'd7',
@@ -200,8 +200,8 @@ export const drivers = [
       { date: '2025-10-05', availableFrom: '07:00', availableTo: '15:30' },
       { date: '2025-10-06', availableFrom: '07:00', availableTo: '15:30' },
       { date: '2025-10-07', availableFrom: '07:00', availableTo: '15:30' },
-      { date: '2025-10-08', availableFrom: '07:00', availableTo: '15:30' }
-    ]
+      { date: '2025-10-08', availableFrom: '07:00', availableTo: '15:30' },
+    ],
   },
   {
     id: 'd8',
@@ -212,8 +212,8 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '06:15', availableTo: '14:15' },
-      { date: '2025-10-06', availableFrom: '06:15', availableTo: '14:15' }
-    ]
+      { date: '2025-10-06', availableFrom: '06:15', availableTo: '14:15' },
+    ],
   },
   {
     id: 'd9',
@@ -224,8 +224,8 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '08:30', availableTo: '16:30' },
-      { date: '2025-10-07', availableFrom: '08:30', availableTo: '16:30' }
-    ]
+      { date: '2025-10-07', availableFrom: '08:30', availableTo: '16:30' },
+    ],
   },
   {
     id: 'd10',
@@ -238,8 +238,8 @@ export const drivers = [
       { date: '2025-10-05', availableFrom: '18:00', availableTo: '02:00' },
       { date: '2025-10-06', availableFrom: '18:00', availableTo: '02:00' },
       { date: '2025-10-07', availableFrom: '18:00', availableTo: '02:00' },
-      { date: '2025-10-08', availableFrom: '18:00', availableTo: '02:00' }
-    ]
+      { date: '2025-10-08', availableFrom: '18:00', availableTo: '02:00' },
+    ],
   },
   {
     id: 'd11',
@@ -250,8 +250,8 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '18:30', availableTo: '01:30' },
-      { date: '2025-10-06', availableFrom: '18:30', availableTo: '01:30' }
-    ]
+      { date: '2025-10-06', availableFrom: '18:30', availableTo: '01:30' },
+    ],
   },
   {
     id: 'd12',
@@ -262,8 +262,8 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '19:00', availableTo: '03:00' },
-      { date: '2025-10-07', availableFrom: '19:00', availableTo: '03:00' }
-    ]
+      { date: '2025-10-07', availableFrom: '19:00', availableTo: '03:00' },
+    ],
   },
   {
     id: 'd13',
@@ -274,8 +274,8 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '20:00', availableTo: '04:00' },
-      { date: '2025-10-06', availableFrom: '06:00', availableTo: '14:00' }
-    ]
+      { date: '2025-10-06', availableFrom: '06:00', availableTo: '14:00' },
+    ],
   },
   {
     id: 'd14',
@@ -287,8 +287,8 @@ export const drivers = [
     availability: [
       { date: '2025-10-05', availableFrom: '19:30', availableTo: '02:30' },
       { date: '2025-10-06', availableFrom: '19:30', availableTo: '02:30' },
-      { date: '2025-10-08', availableFrom: '19:30', availableTo: '02:30' }
-    ]
+      { date: '2025-10-08', availableFrom: '19:30', availableTo: '02:30' },
+    ],
   },
   {
     id: 'd15',
@@ -299,10 +299,10 @@ export const drivers = [
     currentAssignments: [],
     availability: [
       { date: '2025-10-05', availableFrom: '22:00', availableTo: '23:00' },
-      { date: '2025-10-07', availableFrom: '08:00', availableTo: '16:00' }
-    ]
-  }
-];
+      { date: '2025-10-07', availableFrom: '08:00', availableTo: '16:00' },
+    ],
+  },
+]
 
 export const districts = [
   'Kadıköy',
@@ -314,14 +314,13 @@ export const districts = [
   'Beylikdüzü',
   'Maltepe',
   'Çekmeköy',
-  'Sultangazi'
-];
+  'Sultangazi',
+]
 
 export const shifts = [
   { value: 'morning', label: 'Sabah' },
-  { value: 'night', label: 'Gece' }
-];
-
+  { value: 'night', label: 'Gece' },
+]
 
 export const mockApi = {
   // Atama kaydetme (POST /assignments)
@@ -330,20 +329,19 @@ export const mockApi = {
       setTimeout(() => {
         // %80 başarı oranı (optimistic update test için)
         if (Math.random() > 0.2) {
-          resolve({ success: true, message: 'Atama başarılı' });
+          resolve({ success: true, message: 'Atama başarılı' })
         } else {
-          reject({ success: false, message: 'Atama kaydedilemedi' });
+          reject({ success: false, message: 'Atama kaydedilemedi' })
         }
-      }, 800); // 800ms gecikme
-    });
+      }, 800) // 800ms gecikme
+    })
   },
 
- 
   removeAssignment(driverId, routeId) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({ success: true, message: 'Atama kaldırıldı' });
-      }, 500);
-    });
-  }
-};
+        resolve({ success: true, message: 'Atama kaldırıldı' })
+      }, 500)
+    })
+  },
+}
